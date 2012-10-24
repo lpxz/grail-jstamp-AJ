@@ -1,0 +1,44 @@
+default: lockjopt stmopt fission debug fissionarray dv hydv base
+
+lock: prep
+	../../../buildscript ${FLAGSLOCKNOJ} -o LOCKNOJ${MAINCLASS} ${SRC}
+
+lockprof: prep
+	../../../buildscript ${FLAGSLOCKPROF} -o LOCKPROF${MAINCLASS} ${SRC}
+
+lockprofo0: prep
+	../../../buildscript ${FLAGSLOCKPROFO0} -o LOCKPROFO0${MAINCLASS} ${SRC}
+
+basestm: prep
+	../../../buildscript ${FLAGSSTMNOJ} -o STMNOJ${MAINCLASS} ${SRC}
+
+lockjopt: prep
+	../../../buildscript ${FLAGSLOCK} -o LOCK${MAINCLASS} ${SRC}
+
+stmjopt: prep
+	../../../buildscript ${FLAGSSTM} -o STM${MAINCLASS} ${SRC}
+
+stmopt: prep
+	../../../buildscript ${FLAGSOPTSTM} -o OPTSTM${MAINCLASS} ${SRC}
+
+fission: prep
+	../../../buildscript ${FLAGSFISSION} -o FIS${MAINCLASS} ${SRC}
+
+fissionarray: prep
+	../../../buildscript ${FLAGSFISSIONARRAY} -o FISAR${MAINCLASS} ${SRC}
+
+dv: prep
+	../../../buildscript ${FLAGSDV} -o DV${MAINCLASS} ${SRC}
+
+hydv: prep
+	../../../buildscript ${FLAGSHYDV} -o HYDV${MAINCLASS} ${SRC}
+
+debug: prep
+	../../../buildscript ${FLAGSDEBUG} -o DEB${MAINCLASS} ${SRC}
+
+base: prep
+	../../../buildscript ${FLAGSBASE} -o BASE${MAINCLASS} ${SRC}
+
+stats: prep
+	../../../buildscript ${FLAGSSTATS} -o STATS${MAINCLASS} ${SRC}
+

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="eval" name="jstamp-AJ">
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+	        <classpath>
+	            <pathelement location="/home/lpxz/eclipse/workspace/soot24/lib/ant-contrib.jar"/>
+	        </classpath>
+	    </taskdef>
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="jstamp-AJ.classpath">
+        <pathelement location="bin"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.g"/>
+                <exclude name="**/*.java"/>
+                <exclude name="Labyrinth3D/QuickSort.java"/>
+                <exclude name="Genome/Bitmap.java"/>
+                <exclude name="Yada/avltree.java"/>
+                <exclude name="Yada/bytereader.java"/>
+                <exclude name="Yada/element.java"/>
+                <exclude name="Yada/heap.java"/>
+                <exclude name="Yada/List_t.java"/>
+                <exclude name="Yada/mesh.java"/>
+                <exclude name="Yada/Queue_t.java"/>
+                <exclude name="Yada/RBTree.java"/>
+                <exclude name="Yada/Vector_t.java"/>
+                <exclude name="Yada/coordinate.java"/>
+                <exclude name="Yada/edge.java"/>
+                <exclude name="Yada/global_arg.java"/>
+                <exclude name="Yada/List_Node.java"/>
+                <exclude name="Yada/Node.java"/>
+                <exclude name="Yada/Random.java"/>
+                <exclude name="Yada/region.java"/>
+                <exclude name="Yada/yada.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <exclude name="Labyrinth3D/QuickSort.java"/>
+            <exclude name="Genome/Bitmap.java"/>
+            <exclude name="Yada/avltree.java"/>
+            <exclude name="Yada/bytereader.java"/>
+            <exclude name="Yada/element.java"/>
+            <exclude name="Yada/heap.java"/>
+            <exclude name="Yada/List_t.java"/>
+            <exclude name="Yada/mesh.java"/>
+            <exclude name="Yada/Queue_t.java"/>
+            <exclude name="Yada/RBTree.java"/>
+            <exclude name="Yada/Vector_t.java"/>
+            <exclude name="Yada/coordinate.java"/>
+            <exclude name="Yada/edge.java"/>
+            <exclude name="Yada/global_arg.java"/>
+            <exclude name="Yada/List_Node.java"/>
+            <exclude name="Yada/Node.java"/>
+            <exclude name="Yada/Random.java"/>
+            <exclude name="Yada/region.java"/>
+            <exclude name="Yada/yada.java"/>
+            <classpath refid="jstamp-AJ.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+
+	
+    <target name="Bayes">
+        <java classname="Bayes.Bayes" failonerror="true" fork="yes">
+            <arg line="-t 8 -v 42"/>
+        	  <jvmarg line="-Xmx8g"/>
+            <classpath refid="jstamp-AJ.classpath"/>
+        </java>
+    </target>
+	
+
+		
+	    <target name="Genome">
+	        <java classname="Genome.Genome" failonerror="true" fork="yes">
+	            <arg line="-t ${threadNum} -g 16384 -s 64 -n 1677216"/>
+	        	  <jvmarg line="-Xmx8g"/>
+	            <classpath refid="jstamp-AJ.classpath"/>
+	        </java>
+	    </target>
+		
+		
+		   <target name="Intruder">
+		        <java classname="Intruder.Intruder" failonerror="true" fork="yes">
+		            <arg line="-t ${threadNum} -a 100"/> <!--workload, percentage of attack-->
+		        	  <jvmarg line="-Xmx8g"/>
+		            <classpath refid="jstamp-AJ.classpath"/>
+		        </java>
+		    </target>
+			
+		
+		   <target name="KMeans">
+		        <java classname="KMeans.KMeans" failonerror="true" fork="yes">
+		            <arg line="-nthreads ${threadNum} -m 15 -n 15 -t 0.00001 -i /home/lpxz/eclipse/workspace/jstamp/src/KMeans/inputs/random-n65536-d32-c16.txt"/> <!--workload, percentage of attack-->
+		        	  <jvmarg line="-Xmx8g"/>
+		            <classpath refid="jstamp-AJ.classpath"/>
+		        </java>
+		    </target>
+		
+		   <target name="Laby">
+			        <java classname="Labyrinth3D.Labyrinth" failonerror="true" fork="yes">
+			            <arg line="-t ${threadNum} -i /home/lpxz/eclipse/workspace/jstamp/src/Labyrinth3D/inputs/random-x256-y256-z5-n256.txt"/> <!--workload, percentage of attack-->
+			        	  <jvmarg line="-Xmx8g"/>
+			            <classpath refid="jstamp-AJ.classpath"/>
+			        </java>
+			    </target>
+		
+		
+		
+		   <target name="MatrixMultiply">
+			        <java classname="MatrixMultiply.MatrixMultiply" failonerror="true" fork="yes">
+			            <arg line="${threadNum} 1200"/> <!--workload, percentage of attack-->
+			        	  <jvmarg line="-Xmx8g"/>
+			            <classpath refid="jstamp-AJ.classpath"/>
+			        </java>
+			</target>
+		
+		   <target name="SSCA2">
+			        <java classname="SSCA2.SSCA2" failonerror="true" fork="yes">
+			            <arg line="-t ${threadNum}"/> <!--workload, percentage of attack-->
+			        	  <jvmarg line="-Xmx8g"/>
+			            <classpath refid="jstamp-AJ.classpath"/>
+			        </java>
+			</target>
+		
+		
+		   <target name="Vacation">
+			        <java classname="Vacation.Vacation" failonerror="true" fork="yes">
+			            <arg line="-c ${threadNum} -n 4 -q 60 -u 90 -r 1048576 -t 4194304"/> <!--clinets as threads-->
+			        	  <jvmarg line="-Xmx8g"/>
+			            <classpath refid="jstamp-AJ.classpath"/>
+			        </java>
+			</target>
+		
+		   <target name="Yada">
+			        <java classname="Yada.java.yada" failonerror="true" fork="yes">
+			            <arg line="-t ${threadNum} -i /home/lpxz/eclipse/workspace/jstamp/src/Yada/input/ttimeu100000.2"/> <!--clinets as threads-->
+			        	  <jvmarg line="-Xmx8g"/>
+			            <classpath refid="jstamp-AJ.classpath"/>
+			        </java>
+			</target>
+		            	
+		
+		<target name="eval">
+			 <antcall target="build"/>
+			   <echo message="Bayes"/>
+			   <for list="a,b,c,d,e,f,g,h,i,j" param="letter">	    
+			   	<sequential>
+			   		   <for list="1,2,4,8,12,16" param="th">
+			   			 <sequential>
+				  	      <echo message="the @{letter} run, threadNo= @{th}" />
+				  	     <antcall target="Bayes">
+			   			    <param name ="threadNum" value ="@{th}"/>
+				  	     </antcall>
+			   			 </sequential>
+			   			</for>		
+				  </sequential>
+				</for>		
+			
+			<echo message="Genome"/>
+					   <for list="a,b,c,d,e,f,g,h,i,j" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,12,16" param="th">
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="Genome">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+			
+			<echo message="Intruder"/>
+					   <for list="a,b,c,d,e,f,g,h,i,j" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,12,16" param="th">
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="Intruder">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+			
+			<echo message="KMeans"/>
+					   <for list="a,b,c,d,e,f,g,h,i,j" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,12,16" param="th">
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="KMeans">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+
+
+			<echo message="Laby"/>
+					   <for list="a,b,c,d,e,f,g,h,i,j" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,12,16" param="th">
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="Laby">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+
+
+			
+			
+			<echo message="MatrixMultiply"/>
+					   <for list="a,b,c,d,e,f,g,h,i,j" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,12,16" param="th">
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="MatrixMultiply">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+
+			<echo message="SSCA2"/>
+					   <for list="a,b,c,d,e" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,16" param="th"> <!--power of 2-->
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="SSCA2">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+
+			<echo message="Vacation"/>
+					   <for list="a,b,c,d,e" param="letter">	    
+					   	<sequential>
+					   		   <for list="1,2,4,8,12,16" param="th">
+					   			 <sequential>
+						  	      <echo message="the @{letter} run, threadNo= @{th}" />
+						  	     <antcall target="Vacation">
+					   			    <param name ="threadNum" value ="@{th}"/>
+						  	     </antcall>
+					   			 </sequential>
+					   			</for>		
+						  </sequential>
+						</for>	
+			
+			           <echo message="Yada"/>
+							   <for list="a,b,c,d,e" param="letter">	    
+							   	<sequential>
+							   		   <for list="1,2,4,8,12,16" param="th">
+							   			 <sequential>
+								  	      <echo message="the @{letter} run, threadNo= @{th}" />
+								  	     <antcall target="Yada">
+							   			    <param name ="threadNum" value ="@{th}"/>
+								  	     </antcall>
+							   			 </sequential>
+							   			</for>		
+								  </sequential>
+								</for>	
+			
+			
+			</target>
+	
+</project>

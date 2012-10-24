@@ -1,0 +1,217 @@
+package Vacation;
+
+import Yada.java.Barrier;
+import common.Random;
+
+public class Vacation {
+
+    public static int PARAM_DEFAULT_CLIENTS = (1);
+
+    public static int PARAM_DEFAULT_NUMBER = (10);
+
+    public static int PARAM_DEFAULT_QUERIES = (90);
+
+    public static int PARAM_DEFAULT_RELATIONS = (1 << 16);
+
+    public static int PARAM_DEFAULT_TRANSACTIONS = (1 << 26);
+
+    public static int PARAM_DEFAULT_USER = (80);
+
+    public Vacation() {
+    }
+
+    public static void displayUsage(String appName) {
+        System.out.println("Usage: %s [options]\n" + appName);
+        System.out.println("\nOptions:                                             (defaults)\n");
+        System.out.println("    c <UINT>   Number of [c]lients                   (%i)\n" + PARAM_DEFAULT_CLIENTS);
+        System.out.println("    n <UINT>   [n]umber of user queries/transaction  (%i)\n" + PARAM_DEFAULT_NUMBER);
+        System.out.println("    q <UINT>   Percentage of relations [q]ueried     (%i)\n" + PARAM_DEFAULT_QUERIES);
+        System.out.println("    r <UINT>   Number of possible [r]elations        (%i)\n" + PARAM_DEFAULT_RELATIONS);
+        System.out.println("    t <UINT>   Number of [t]ransactions              (%i)\n" + PARAM_DEFAULT_TRANSACTIONS);
+        System.out.println("    u <UINT>   Percentage of [u]ser transactions     (%i)\n" + PARAM_DEFAULT_USER);
+        System.exit(1);
+    }
+
+    int CLIENTS;
+
+    int NUMBER;
+
+    int QUERIES;
+
+    int RELATIONS;
+
+    int TRANSACTIONS;
+
+    int USER;
+
+    public void setDefaultParams() {
+        CLIENTS = PARAM_DEFAULT_CLIENTS;
+        NUMBER = PARAM_DEFAULT_NUMBER;
+        QUERIES = PARAM_DEFAULT_QUERIES;
+        RELATIONS = PARAM_DEFAULT_RELATIONS;
+        TRANSACTIONS = PARAM_DEFAULT_TRANSACTIONS;
+        USER = PARAM_DEFAULT_USER;
+    }
+
+    public void parseArgs(String argv[]) {
+        int opterr = 0;
+        setDefaultParams();
+        for (int i = 0; i < argv.length; i++) {
+            String arg = argv[i];
+            if (arg.equals("-c")) CLIENTS = Integer.parseInt(argv[++i]); else if (arg.equals("-n")) NUMBER = Integer.parseInt(argv[++i]); else if (arg.equals("-q")) QUERIES = Integer.parseInt(argv[++i]); else if (arg.equals("-r")) RELATIONS = Integer.parseInt(argv[++i]); else if (arg.equals("-t")) TRANSACTIONS = Integer.parseInt(argv[++i]); else if (arg.equals("-u")) USER = Integer.parseInt(argv[++i]); else opterr++;
+        }
+        if (opterr > 0) {
+            displayUsage(argv[0]);
+        }
+    }
+
+    public static boolean addCustomer(Manager managerPtr, int id, int num, int price) {
+        return managerPtr.manager_addCustomer(id);
+    }
+
+    public Manager initializeManager() {
+        int i;
+        int t;
+        System.out.println("Initializing manager... ");
+        Random randomPtr = new Random();
+        randomPtr.random_alloc();
+        Manager managerPtr = new Manager();
+        int numRelation = RELATIONS;
+        int ids[] = new int[numRelation];
+        for (i = 0; i < numRelation; i++) {
+            ids[i] = i + 1;
+        }
+        for (t = 0; t < 4; t++) {
+            for (i = 0; i < numRelation; i++) {
+                int x = randomPtr.posrandom_generate() % numRelation;
+                int y = randomPtr.posrandom_generate() % numRelation;
+                int tmp = ids[x];
+                ids[x] = ids[y];
+                ids[y] = tmp;
+            }
+            for (i = 0; i < numRelation; i++) {
+                boolean status;
+                int id = ids[i];
+                int num = ((randomPtr.posrandom_generate() % 5) + 1) * 100;
+                int price = ((randomPtr.posrandom_generate() % 5) * 10) + 50;
+                if (t == 0) {
+                    status = managerPtr.manager_addCar(id, num, price);
+                } else if (t == 1) {
+                    status = managerPtr.manager_addFlight(id, num, price);
+                } else if (t == 2) {
+                    status = managerPtr.manager_addRoom(id, num, price);
+                } else if (t == 3) {
+                    status = managerPtr.manager_addCustomer(id);
+                }
+            }
+        }
+        System.out.println("done.");
+        return managerPtr;
+    }
+
+    public Client[] initializeClients(Manager managerPtr) {
+        Random randomPtr;
+        Client clients[];
+        int i;
+        int numClient = CLIENTS;
+        int numTransaction = TRANSACTIONS;
+        int numTransactionPerClient;
+        int numQueryPerTransaction = NUMBER;
+        int numRelation = RELATIONS;
+        int percentQuery = QUERIES;
+        int queryRange;
+        int percentUser = USER;
+        System.out.println("Initializing clients... ");
+        randomPtr = new Random();
+        randomPtr.random_alloc();
+        clients = new Client[numClient];
+        numTransactionPerClient = (int) ((double) numTransaction / (double) numClient + 0.5);
+        queryRange = (int) ((double) percentQuery / 100.0 * (double) numRelation + 0.5);
+        for (i = 0; i < numClient; i++) {
+            clients[i] = new Client(i, managerPtr, numTransactionPerClient, numQueryPerTransaction, queryRange, percentUser);
+        }
+        System.out.println("done.");
+        System.out.println("    Transactions        = " + numTransaction);
+        System.out.println("    Clients             = " + numClient);
+        System.out.println("    Transactions/client = " + numTransactionPerClient);
+        System.out.println("    Queries/transaction = " + numQueryPerTransaction);
+        System.out.println("    Relations           = " + numRelation);
+        System.out.println("    Query percent       = " + percentQuery);
+        System.out.println("    Query range         = " + queryRange);
+        System.out.println("    Percent user        = " + percentUser);
+        return clients;
+    }
+
+    public static void main(String argv[]) {
+        Manager managerPtr;
+        Client clients[];
+        long start;
+        long stop;
+        Vacation vac = new Vacation();
+        vac.parseArgs(argv);
+        managerPtr = vac.initializeManager();
+        clients = vac.initializeClients(managerPtr);
+        int numThread = vac.CLIENTS;
+        System.out.println("Running clients... ");
+        Barrier.setBarrier(numThread);
+        start = System.currentTimeMillis();
+        for (int i = 1; i < numThread; i++) {
+            clients[i].start();
+        }
+      
+        clients[0].run();
+        
+        for (int i = 1; i < numThread; i++) {
+            try {
+				clients[i].join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        stop = System.currentTimeMillis();
+        System.out.print("done.");
+        long diff = stop - start;
+        System.out.println("TIME=" + diff);
+        vac.checkTables(managerPtr);
+        System.out.println("Deallocating memory... ");
+        System.out.println("done.");
+    }
+
+    void checkTables(Manager managerPtr) {
+        int i;
+        int numRelation = RELATIONS;
+        RBTree customerTablePtr = managerPtr.customerTablePtr;
+        RBTree tables[] = new RBTree[3];
+        tables[0] = managerPtr.carTablePtr;
+        tables[1] = managerPtr.flightTablePtr;
+        tables[2] = managerPtr.roomTablePtr;
+        int numTable = 3;
+        int t;
+        System.out.println("Checking tables... ");
+        int percentQuery = QUERIES;
+        int queryRange = (int) ((double) percentQuery / 100.0 * (double) numRelation + 0.5);
+        int maxCustomerId = queryRange + 1;
+        for (i = 1; i <= maxCustomerId; i++) {
+            if (customerTablePtr.find(i) != null) {
+                customerTablePtr.remove(i);
+            }
+        }
+        for (t = 0; t < numTable; t++) {
+            RBTree tablePtr = tables[t];
+            for (i = 1; i <= numRelation; i++) {
+                if (tablePtr.find(i) != null) {
+                    if (t == 0) {
+                        managerPtr.manager_addCar(i, 0, 0);
+                    } else if (t == 1) {
+                        managerPtr.manager_addFlight(i, 0, 0);
+                    } else if (t == 2) {
+                        managerPtr.manager_addRoom(i, 0, 0);
+                    }
+                    tablePtr.remove(i);
+                }
+            }
+        }
+        System.out.println("done.");
+    }
+}

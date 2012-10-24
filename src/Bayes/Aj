@@ -1,0 +1,6 @@
+atomic(B): Bayes.Learner.baseLogLikelihood;
+atomic(L): Bayes.Learner.List.size, Bayes.Learner.List.head, Bayes.Learner.List.head.nextPtr+;
+atomic(V): Bayes.Vector_t.size, Bayes.Vector_t.capacity, Bayes.Vector_t.elements,  Bayes.Vector_t.elements[]Q;
+atomic(Q): Bayes.Query.value;
+
+Bayes.Learner.learnStructure(int myId, int numThread, Learner learnerPtr): unitfor(*) learnerPtr;
