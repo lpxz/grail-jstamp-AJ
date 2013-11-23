@@ -1,8 +1,8 @@
 package Genome;
 
 public class Pair {
-    /*atomicset(P)*/
-   /*atomic(P)*/ ByteString firstPtr ;
+
+    ByteString firstPtr;
 
     ByteString secondPtr;
 

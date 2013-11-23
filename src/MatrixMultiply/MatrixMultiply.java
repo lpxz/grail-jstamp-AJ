@@ -74,22 +74,22 @@ public class MatrixMultiply extends Thread {
             tmp.join();
         }
         long end = System.currentTimeMillis();
-        System.out.println("Time\n" + (end-start));
+        System.out.println("Time\n" + (end - start));
         System.out.println("Finished\n");
     }
 }
 
 class MMul {
-   /*atomicset(M)*/
-  /*atomic(M)*/  public int L, M, N;
 
-  /*atomic(M)*/   public double[][] a /*this.M[]=this.M*/;
+    public int L, M, N;
 
-  /*atomic(M)*/  public double[][] b/*this.M[]=this.M*/;
+    public double[][] a;
 
-  /*atomic(M)*/  public double[][] c/*this.M[]=this.M*/;
+    public double[][] b;
 
-  /*atomic(M)*/ public double[][] btranspose/*this.M[]=this.M*/;
+    public double[][] c;
+
+    public double[][] btranspose;
 
     public MMul(int L, int M, int N) {
         this.L = L;

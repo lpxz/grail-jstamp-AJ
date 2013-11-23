@@ -1,16 +1,16 @@
 package Labyrinth3D;
 
 public class Queue_t {
-    /*atomicset(Q)*/
+
     public static int QUEUE_GROWTH_FACTOR = 2;
 
-   /*atomic(Q)*/ int pop;
+    int pop;
 
-  /*atomic(Q)*/  int push;
+    int push;
 
     int capacity;
 
-    /*atomic(Q)*/Object[] elements /*this.Q[]=this.Q*/;
+    Object[] elements;
 
     public Queue_t() {
     }

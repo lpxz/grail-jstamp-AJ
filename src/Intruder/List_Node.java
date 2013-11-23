@@ -1,10 +1,10 @@
 package Intruder;
 
 public class List_Node {
-    /*atomicset(M)*/
- /*atomic(M)*/   Object dataPtr;
 
- /*atomic(M)*/    List_Node nextPtr /*M=this.M*/;
+    Object dataPtr;
+
+    List_Node nextPtr;
 
     public List_Node() {
     }

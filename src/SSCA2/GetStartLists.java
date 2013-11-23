@@ -3,18 +3,18 @@ package SSCA2;
 import Yada.java.Barrier;
 
 public class GetStartLists {
-    /*atomicset(W)*/
+
     Graph GPtr;
 
     Edge[] maxIntWtListPtr;
-  /*atomicset(T)*/
-  /*atomic(T)*/  int maxIntWtListSize;
+
+    int maxIntWtListSize;
 
     Edge[] soughtStrWtListPtr;
 
     int soughtStrWtListSize;
 
-  /*atomic(W)*/  int global_maxWeight;
+    int global_maxWeight;
 
     int[] global_i_edgeStartCounter;
 

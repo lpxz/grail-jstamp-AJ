@@ -1,10 +1,10 @@
 package Genome;
 
 public class List {
-     /*atomicset(L)*/
-   /*atomic(L)*/ ListNode head /*N=this.L*/;
 
-   /*atomic(L)*/ int size;
+    ListNode head;
+
+    int size;
 
     public List() {
         head = new ListNode();

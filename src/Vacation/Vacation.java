@@ -158,16 +158,13 @@ public class Vacation {
         for (int i = 1; i < numThread; i++) {
             clients[i].start();
         }
-      
         clients[0].run();
-        
         for (int i = 1; i < numThread; i++) {
             try {
-				clients[i].join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                clients[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         stop = System.currentTimeMillis();
         System.out.print("done.");

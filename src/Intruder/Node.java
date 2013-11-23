@@ -1,18 +1,18 @@
 package Intruder;
 
 public class Node {
-    /*atomicset(N)*/
- /*atomic(N)*/   int k;
 
- /*atomic(N)*/     Object v;
+    int k;
 
- /*atomic(N)*/     Node p /*N=this.N*/;
+    Object v;
 
- /*atomic(N)*/    Node l /*N=this.N*/;
+    Node p;
 
- /*atomic(N)*/    Node r /*N=this.N*/;
+    Node l;
 
- /*atomic(N)*/    int c;
+    Node r;
+
+    int c;
 
     public Node() {
     }

@@ -1,12 +1,12 @@
 package Labyrinth3D;
 
 public class Vector_t {
-    /*atomicset(V)*/
-    /* atomic(V)*/ int size;
+
+    int size;
 
     int capacity;
 
-    /*atomic(V)*/Object[] elements /*this.V[]=this.V*/;
+    Object[] elements;
 
     public Vector_t() {
     }

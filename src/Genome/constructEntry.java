@@ -1,19 +1,18 @@
 package Genome;
 
 public class constructEntry {
-    /*atomicset(C)*/
-    /*atomic(C)*/boolean isStart;
-    
-    /*atomicset(S)*/
-    /*atomic(S)*/   ByteString segment;
+
+    boolean isStart;
+
+    ByteString segment;
 
     int endHash;
 
-   /*atomic(C)*/ constructEntry startPtr;
+    constructEntry startPtr;
 
     constructEntry nextPtr;
 
-    /*atomic(C)*/  constructEntry endPtr;
+    constructEntry endPtr;
 
     int overlap;
 

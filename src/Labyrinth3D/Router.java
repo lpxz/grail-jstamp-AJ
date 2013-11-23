@@ -3,7 +3,6 @@ package Labyrinth3D;
 import common.Pair;
 
 public class Router {
-	/*atomicset(R)*/
 
     public static int MOMENTUM_ZERO = 0;
 
@@ -23,13 +22,13 @@ public class Router {
 
     public static int GRID_POINT_EMPTY = -1;
 
-/*atomic(R)*/    public int xCost;
+    public int xCost;
 
-/*atomic(R)*/    public int yCost;
+    public int yCost;
 
-/*atomic(R)*/    public int zCost;
+    public int zCost;
 
- /*atomic(R)*/   public int bendCost;
+    public int bendCost;
 
     public static Point MOVE_POSX;
 

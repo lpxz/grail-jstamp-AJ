@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 import common.Pair;
 
 public class Maze {
-   /*atomicset(M)*/
+
     private static int GRID_POINT_FULL = -2;
 
     private static int GRID_POINT_EMPTY = -1;
@@ -17,11 +17,11 @@ public class Maze {
 
     Queue_t workQueuePtr;
 
- /*atomic(M)*/   Vector_t wallVectorPtr /*V=this.M*/;
+    Vector_t wallVectorPtr;
 
-  /*atomic(M)*/  Vector_t srcVectorPtr /*V=this.M*/;
+    Vector_t srcVectorPtr;
 
- /*atomic(M)*/   Vector_t dstVectorPtr /*V=this.M*/;
+    Vector_t dstVectorPtr;
 
     public Maze() {
     }

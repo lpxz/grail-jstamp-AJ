@@ -3,21 +3,16 @@ package SSCA2;
 import Yada.java.Barrier;
 
 public class ComputeGraph {
-   /*atomicset(C)*/
-	
-	/*atomicset(G)*/
-    
-	/*atomicset(Y)*/
-	
-	/*atomic(Y)*/public Graph GPtr /*I=this.Y*/;
+
+    public Graph GPtr;
 
     public GraphSDG SDGdataPtr;
 
     public int[] global_p;
 
-   /*atomic(C)*/ public int global_maxNumVertices;
+    public int global_maxNumVertices;
 
-   /*atomic(G)*/ public int global_outVertexListSize;
+    public int global_outVertexListSize;
 
     public int[][] global_impliedEdgeList;
 

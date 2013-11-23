@@ -200,7 +200,9 @@ public class avltree {
                         do {
                             avlnode n = s.link[dir];
                             avlnode nn = n.link[1 - dir];
-                  if(n==null) continue; if(nn==null) continue;          if (nn.balance == 0) s.balance = n.balance = 0; else if (nn.balance == bal) {
+                            if (n == null) continue;
+                            if (nn == null) continue;
+                            if (nn.balance == 0) s.balance = n.balance = 0; else if (nn.balance == bal) {
                                 s.balance = -bal;
                                 n.balance = 0;
                             } else {
@@ -211,7 +213,8 @@ public class avltree {
                         } while (false);
                         do {
                             avlnode save = s.link[1 - (1 - dir)].link[(1 - dir)];
-                       if(save==null) continue;     s.link[1 - (1 - dir)].link[(1 - dir)] = save.link[1 - (1 - dir)];
+                            if (save == null) continue;
+                            s.link[1 - (1 - dir)].link[(1 - dir)] = save.link[1 - (1 - dir)];
                             save.link[1 - (1 - dir)] = s.link[1 - (1 - dir)];
                             s.link[1 - (1 - dir)] = save;
                             save = s.link[1 - (1 - dir)];

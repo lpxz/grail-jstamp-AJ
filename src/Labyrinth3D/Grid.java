@@ -4,17 +4,16 @@ import java.lang.Long;
 import java.util.Arrays;
 
 public class Grid {
-    
-	/*atomicset(G)*/
+
     private static int GRID_POINT_FULL = -2;
 
     private static int GRID_POINT_EMPTY = -1;
 
- /*atomic(G)*/    public int width;
+    public int width;
 
-/*atomic(G)*/    public int height;
+    public int height;
 
-/*atomic(G)*/    public int depth;
+    public int depth;
 
     public int[][][] points_unaligned;
 

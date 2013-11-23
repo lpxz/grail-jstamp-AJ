@@ -1,10 +1,10 @@
 package Yada.java;
 
 public class heap {
-     /*atomicset(H)*/
-    /*atomic(H)*/Object[] elements /*this.H[] = this.H*/;
 
-   /*atomic(H)*/ int size;
+    Object[] elements;
+
+    int size;
 
     int capacity;
 

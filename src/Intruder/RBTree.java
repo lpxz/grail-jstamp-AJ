@@ -1,7 +1,7 @@
 package Intruder;
 
 public class RBTree {
-    /*atomicset(R)*/
+
     public static int RED = 0;
 
     public static int BLACK = 1;
@@ -26,7 +26,7 @@ public class RBTree {
         if (n != null) n.c = col;
     }
 
-/*atomic(R)*/    Node root /*N=this.R*/;
+    Node root;
 
     int compID;
 

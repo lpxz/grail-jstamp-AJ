@@ -1,7 +1,7 @@
 package SSCA2;
 
 public class Graph {
-    /*atomicset(I)*/
+
     public int numVertices;
 
     public int numEdges;
@@ -22,7 +22,7 @@ public class Graph {
 
     public int[] paralEdgeIndex;
 
-   /*atomic(I)*/ public int[] inDegree /*this.I[]=this.I*/;
+    public int[] inDegree;
 
     public int[] inVertexIndex;
 

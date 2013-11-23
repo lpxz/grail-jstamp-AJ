@@ -4,10 +4,9 @@ import common.Random;
 import Yada.java.Barrier;
 
 public class GenScalData {
-    /*atomicset(P)*/
-    /*atomic(P)*/public int[] global_permV /*this.P[]=this.P*/;
-    /*atomicset(E)*/
-    /*atomicset(S)*/
+
+    public int[] global_permV;
+
     public int[] global_cliqueSizes;
 
     public int global_totCliques;
@@ -20,9 +19,9 @@ public class GenScalData {
 
     public int[] global_i_edgeEndCounter;
 
- /*atomic(E)*/   public int global_edgeNum;
+    public int global_edgeNum;
 
- /*atomic(S)*/   public int global_numStrWtEdges;
+    public int global_numStrWtEdges;
 
     public int[] global_startVertex;
 
@@ -30,9 +29,6 @@ public class GenScalData {
 
     public int[] global_tempIndex;
 
-    /**
-   * Constructor
-   **/
     public GenScalData() {
         global_permV = null;
         global_cliqueSizes = null;
@@ -48,11 +44,6 @@ public class GenScalData {
         global_tempIndex = null;
     }
 
-    /**
-   * =============================================================================
-   *      genScalData_seq
-   * =============================================================================
-   **/
     public static void genScalData_seq(Globals glb, GraphSDG SDGdataPtr, GenScalData gsd, Alg_Radix_Smp radixsort) {
         Random randomPtr = new Random();
         randomPtr.random_alloc();
@@ -420,11 +411,6 @@ public class GenScalData {
         }
     }
 
-    /**
-   * =============================================================================
-   *       genScalData
-   * =============================================================================
-   */
     public static void genScalData(int myId, int numThread, Globals glb, GraphSDG SDGdataPtr, GenScalData gsd, Alg_Radix_Smp radixsort) {
         Random randomPtr = new Random();
         randomPtr.random_alloc();

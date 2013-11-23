@@ -7,7 +7,8 @@ import Yada.java.Barrier;
 import common.Random;
 
 public class Sequencer {
-  public ByteString sequence;
+
+    public ByteString sequence;
 
     public Segments segmentsPtr;
 
@@ -159,7 +160,8 @@ public class Sequencer {
                 LinkedList chainPtr = buckets[(endHash % numBucket)];
                 ListIterator it = (ListIterator) chainPtr.iterator();
                 while (it.hasNext()) {
-                    constructEntry startConstructEntryPtr = (constructEntry) it.next(); if(startConstructEntryPtr==null) continue;
+                    constructEntry startConstructEntryPtr = (constructEntry) it.next();
+                    if (startConstructEntryPtr == null) continue;
                     ByteString startSegment = startConstructEntryPtr.segment;
                     synchronized (common.G.lock) {
                         trans2(startSegment, endSegment, startConstructEntryPtr, endConstructEntryPtr, segmentLength, substringLength, endInfoEntries, entryIndex);
@@ -184,7 +186,7 @@ public class Sequencer {
                     for (j = 0; i < numUniqueSegment; i += endInfoEntries[i].jumpToNext) {
                         if (endInfoEntries[i].isEnd) {
                             ByteString segment = constructEntries[i].segment;
-                           if(segment!=null) constructEntries[i].endHash = segment.substring(index).hashCode();
+                            if (segment != null) constructEntries[i].endHash = segment.substring(index).hashCode();
                             endInfoEntries[j].jumpToNext = Math.max(1, i - j);
                             j = i;
                         }
@@ -216,7 +218,7 @@ public class Sequencer {
                         if (sequencerPtr.sequence == null) {
                             sequencerPtr.sequence = copyPtr;
                         } else {
-                        	 if(copyPtr!=null) sequencerPtr.sequence = sequencerPtr.sequence.concat(copyPtr.substring(prevOverlap));
+                            if (copyPtr != null) sequencerPtr.sequence = sequencerPtr.sequence.concat(copyPtr.substring(prevOverlap));
                         }
                         prevOverlap = constructEntryPtr.overlap;
                         constructEntryPtr = constructEntryPtr.nextPtr;
@@ -226,7 +228,7 @@ public class Sequencer {
         }
     }
 
-    static void trans2(ByteString /*unitfor(Y)*/startSegment, ByteString /*unitfor(Y)*/endSegment, constructEntry /*unitfor(C)*/ startConstructEntryPtr, constructEntry  /*unitfor(C)*/ endConstructEntryPtr, int segmentLength, int substringLength, endInfoEntry endInfoEntries[], int entryIndex) {
+    static void trans2(ByteString startSegment, ByteString endSegment, constructEntry startConstructEntryPtr, constructEntry endConstructEntryPtr, int segmentLength, int substringLength, endInfoEntry endInfoEntries[], int entryIndex) {
         if (startConstructEntryPtr.isStart && (endConstructEntryPtr.startPtr != startConstructEntryPtr) && (startSegment.substring(0, substringLength).compareTo(endSegment.substring(segmentLength - substringLength)) == 0)) {
             startConstructEntryPtr.isStart = false;
             endInfoEntries[entryIndex].isEnd = false;

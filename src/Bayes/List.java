@@ -4,10 +4,9 @@ public class List {
 
     private static final boolean LIST_NO_DUPLICATES = false;
 
-    /*atomicset(L)*/
-    /*atomic(L)*/public ListNode head /*N=this.L*/;
+    public ListNode head;
 
-    /*atomic(L)*/public int size;
+    public int size;
 
     public List() {
     }

@@ -1,6 +1,5 @@
 package Bayes;
 
-
 import Yada.java.Barrier;
 
 public class Bayes extends Thread {
@@ -152,18 +151,11 @@ public class Bayes extends Thread {
         return score;
     }
 
-    /**
-   * parallel execution
-   **/
     public void run() {
-
-       
         Barrier.enterBarrier();
-      //  synchronized ("testing")
         {
-        	 Learner.createTaskList(myId, numThread, learnerPtr);
-		}
-        
+            Learner.createTaskList(myId, numThread, learnerPtr);
+        }
         Barrier.enterBarrier();
         Barrier.enterBarrier();
         Learner.learnStructure(myId, numThread, learnerPtr);
@@ -173,7 +165,6 @@ public class Bayes extends Thread {
     public static void main(String[] args) {
         Bayes b = new Bayes();
         Bayes.parseArgs(args, b);
-       
         int numThread = b.global_params[PARAM_THREAD];
         int numVar = b.global_params[PARAM_VAR];
         int numRecord = b.global_params[PARAM_RECORD];
@@ -208,48 +199,32 @@ public class Bayes extends Thread {
         float actualScore = b.score(netPtr, adtreePtr);
         netPtr.net_free();
         Learner learnerPtr = new Learner(dataPtr, adtreePtr, numThread, b.global_insertPenalty, b.global_maxNumEdgeLearned, b.global_operationQualityFactor);
-        
-                
-        
         System.out.print("Learning structure...");
         for (int i = 1; i < numThread; i++) {
             binit[i] = new Bayes(i, numThread, learnerPtr);
         }
-        
         long start = System.currentTimeMillis();
-        
         for (int i = 1; i < numThread; i++) {
             binit[i].start();
         }
-
-        
-
-      
-
         Barrier.enterBarrier();
         Learner.createTaskList(0, numThread, learnerPtr);
         Barrier.enterBarrier();
         Barrier.enterBarrier();
         Learner.learnStructure(0, numThread, learnerPtr);
         Barrier.enterBarrier();
-
-        
         for (int i = 1; i < numThread; i++) {
             try {
-				binit[i].join();
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}
+                binit[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
-        
         boolean status = learnerPtr.netPtr.net_isCycle();
         if (SIMULATOR) {
             float learnScore = learnerPtr.learner_score();
             System.out.println("Learn score= " + (double) learnScore);
         }
-      
         System.out.println("Actual score= " + (double) actualScore);
         long stop = System.currentTimeMillis();
         long diff = stop - start;

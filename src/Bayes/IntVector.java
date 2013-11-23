@@ -1,12 +1,5 @@
 package Bayes;
 
-/**
- * Author: Alokika Dash
- * University of California, Irvine
- * adash@uci.edu
- *
- * - Vector class for "ints" elements 
- **/
 public class IntVector {
 
     int size;

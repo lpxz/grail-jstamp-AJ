@@ -5,16 +5,6 @@ public class QuickSort {
     public QuickSort() {
     }
 
-    /**
-   * Sort an array of Objects into ascending order. The sort algorithm is an optimised
-   * quicksort, as described in Jon L. Bentley and M. Douglas McIlroy's
-   * "Engineering a Sort Function", Software-Practice and Experience, Vol.
-   * 23(11) P. 1249-1265 (November 1993). This algorithm gives nlog(n)
-   * performance on many arrays that would take quadratic time with a standard
-   * quicksort.
-   *
-   * @param a the array to sort
-   */
     public static void sort(Object[] a) {
         qsort(a, 0, a.length);
     }

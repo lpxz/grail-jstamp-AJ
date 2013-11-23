@@ -16,39 +16,18 @@ public class SSCA2 extends Thread {
 
     GraphSDG SDGdata;
 
-    /**
-   * The graph data structure for this benchmark - see defs.h
-   **/
     Graph G;
 
-    /**
-   *
-   */
     ComputeGraph computeGraphArgs;
 
-    /**
-   * thread id
-   **/
     int threadid;
 
-    /**
-   * Total number of threads
-   **/
     int numThread;
 
-    /**
-   * Global Arguments 
-   **/
     Globals glb;
 
-    /**
-   *  Gen scalable data
-   **/
     GenScalData gsd;
 
-    /**
-   **
-   **/
     GetStartLists getStartListsArg;
 
     Alg_Radix_Smp radixsort;
@@ -76,7 +55,7 @@ public class SSCA2 extends Thread {
             ComputeGraph.computeGraph(threadid, numThread, glb, computeGraphArgs);
             Barrier.enterBarrier();
         }
-        if (ENABLE_KERNEL2) { // this branch is not executed, soot compiler does not analyze it
+        if (ENABLE_KERNEL2) {
             Barrier.enterBarrier();
             GetStartLists.getStartLists(threadid, numThread, glb, getStartListsArg);
             Barrier.enterBarrier();
@@ -84,7 +63,6 @@ public class SSCA2 extends Thread {
     }
 
     public static void main(String[] args) {
-
         GraphSDG SDGdata = new GraphSDG();
         Graph G = new Graph();
         ComputeGraph computeGraphArgs = new ComputeGraph();
@@ -105,13 +83,12 @@ public class SSCA2 extends Thread {
         System.out.println("Probability inter-clique:   " + glb.PROB_INTERCL_EDGES);
         System.out.println("Subgraph edge length:       " + glb.SUBGR_EDGE_LENGTH);
         System.out.println("Kernel 3 data structure:    " + glb.K3_DS);
-       
         SSCA2[] ssca = new SSCA2[glb.THREADS];
         int nthreads = glb.THREADS;
         GenScalData gsd = new GenScalData();
         Alg_Radix_Smp radixsort = new Alg_Radix_Smp();
         GetStartLists getStartListsArg = new GetStartLists();
-        getStartListsArg.GPtr = G;       
+        getStartListsArg.GPtr = G;
         Barrier.setBarrier(nthreads);
         for (int i = 1; i < nthreads; i++) {
             ssca[i] = new SSCA2(i, nthreads, glb, computeGraphArgs, gsd, getStartListsArg, radixsort);
@@ -121,14 +98,11 @@ public class SSCA2 extends Thread {
             ssca[i].start();
         }
         System.out.println("\nScalable Data Generator - genScalData() beginning execution...\n");
-        
         if (USE_PARALLEL_DATA_GENERATION) {
             parallel_work_genScalData(nthreads, glb, SDGdata, gsd, radixsort);
         } else {
             GenScalData.genScalData_seq(glb, SDGdata, gsd, radixsort);
         }
-        
-
         if (ENABLE_KERNEL1) {
             System.out.println("\nKernel 1 - computeGraph() beginning execution...");
             starttime = System.currentTimeMillis();
@@ -169,20 +143,17 @@ public class SSCA2 extends Thread {
             parallel_work_cutClusters(G);
             System.out.println("\n\tcutClusters() completed execution.\n");
         }
-        
         for (int i = 1; i < nthreads; i++) {
             try {
-				ssca[i].join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                ssca[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         stoptime = System.currentTimeMillis();
         System.out.println("\n\tgenScalData() completed execution.");
         System.out.println("Time=" + (stoptime - starttime));
         System.exit(0);
-    
     }
 
     public static void parallel_work_genScalData(int numThread, Globals glb, GraphSDG SDGdata, GenScalData gsd, Alg_Radix_Smp radixsort) {

@@ -1,12 +1,12 @@
 package Bayes;
 
 public class Vector_t {
-     /*atomicset(V)*/
-    /*atomic(V)*/int size;
 
-  /*atomic(V)*/    int capacity;
+    int size;
 
-   /*atomic(V)*/ Object[] elements /*this.V[]Q=this.V*/ ;// include the value field of the Query object.
+    int capacity;
+
+    Object[] elements;
 
     public Vector_t() {
     }

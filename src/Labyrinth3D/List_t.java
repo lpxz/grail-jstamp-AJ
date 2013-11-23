@@ -1,12 +1,12 @@
 package Labyrinth3D;
 
 public class List_t {
-   /*atomicset(L)*/
-/*atomic(L)*/    public List_Node head /*N=this.N*/;
+
+    public List_Node head;
 
     boolean isCoordinate;
 
-/*atomic(L)*/    int size;
+    int size;
 
     public List_t() {
         head = new List_Node();

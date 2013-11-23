@@ -8,60 +8,26 @@ import Yada.java.Barrier;
 
 public class KMeans extends Thread {
 
-    /**
-   * User input for max clusters
-   **/
     int max_nclusters;
 
-    /**
-   * User input for min clusters
-   **/
     int min_nclusters;
 
-    /**
-   * Check for Binary file
-   **/
     int isBinaryFile;
 
-    /**
-   * Using zscore transformation for cluster center 
-   * deviating from distribution's mean
-   **/
     int use_zscore_transform;
 
-    /**
-   * Input file name used for clustering
-   **/
     String filename;
 
-    /**
-   * Total number of threads
-   **/
     int nthreads;
 
-    /**
-   * threshold until which kmeans cluster continues
-   **/
     float threshold;
 
-    /**
-   * thread id
-   **/
     int threadid;
 
-    /**
-   * Global arguments for threads 
-   **/
     GlobalArgs g_args;
 
-    /**
-   * Output:  Number of best clusters
-   **/
     int best_nclusters;
 
-    /**
-   * Output: Cluster centers
-   **/
     float[][] cluster_centres;
 
     public KMeans() {
@@ -79,7 +45,6 @@ public class KMeans extends Thread {
     }
 
     public void run() {
-      //  while (true)
         {
             Barrier.enterBarrier();
             Normal.work(threadid, g_args);
@@ -88,13 +53,11 @@ public class KMeans extends Thread {
     }
 
     public static void main(String[] args) {
-
         int nthreads;
         int MAX_LINE_LENGTH = 1000000;
         KMeans kms = new KMeans();
         KMeans.parseCmdLine(args, kms);
         nthreads = kms.nthreads;
-     
         if (kms.max_nclusters < kms.min_nclusters) {
             System.out.println("Error: max_clusters must be >= min_clusters\n");
             System.exit(0);
@@ -112,7 +75,7 @@ public class KMeans extends Thread {
             inputFile = new FileInputStream(kms.filename);
             byte b[] = new byte[MAX_LINE_LENGTH];
             int n;
-            while ((n = inputFile.read(b)) != -1 ){
+            while ((n = inputFile.read(b)) != -1) {
                 for (int i = 0; i < n; i++) {
                     if (b[i] == '\n') numObjects++;
                 }
@@ -121,7 +84,6 @@ public class KMeans extends Thread {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-      
         BufferedReader br;
         try {
             br = new BufferedReader(new FileReader(kms.filename));
@@ -142,7 +104,6 @@ public class KMeans extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-      
         numAttributes = numAttributes - 1;
         System.out.println("numObjects= " + numObjects + " numAttributes= " + numAttributes);
         buf = new float[numObjects][numAttributes];
@@ -158,9 +119,7 @@ public class KMeans extends Thread {
         KMeans[] km = new KMeans[nthreads];
         GlobalArgs g_args = new GlobalArgs();
         g_args.nthreads = nthreads;
-        System.out.println("num of threads: "+nthreads);     
-        //Barrier.setBarrier(nthreads);
-         
+        System.out.println("num of threads: " + nthreads);
         for (int i = 1; i < nthreads; i++) {
             km[i] = new KMeans(i, g_args);
         }
@@ -175,20 +134,17 @@ public class KMeans extends Thread {
                     attributes[x][y] = buf[x][y];
                 }
             }
-          Cluster.cluster_exec(nthreads, numObjects, numAttributes, attributes, kms, g_args);
+            Cluster.cluster_exec(nthreads, numObjects, numAttributes, attributes, kms, g_args);
         }
-        
         for (int i = 1; i < nthreads; i++) {
             try {
-				km[i].join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                km[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        
         long end = System.currentTimeMillis();
-        System.out.println("TIME=" +  (end-start)); // g_args.global_time
+        System.out.println("TIME=" + (end - start));
         System.out.println("Printing output......");
         System.out.println("Best_nclusters= " + kms.best_nclusters);
         {
@@ -202,7 +158,6 @@ public class KMeans extends Thread {
         }
         System.out.println("Finished......");
         System.exit(0);
-    
     }
 
     public static void parseCmdLine(String args[], KMeans km) {
@@ -245,9 +200,6 @@ public class KMeans extends Thread {
         }
     }
 
-    /**
-   * The usage routine which describes the program options.
-   **/
     public void usage() {
         System.out.println("usage: ./kmeans -m <max_clusters> -n <min_clusters> -t <threshold> -i <filename> -nthreads <threads>\n");
         System.out.println("  -i filename:     file containing data to be clustered\n");
@@ -259,11 +211,6 @@ public class KMeans extends Thread {
         System.out.println("  -nthreads      : number of threads\n");
     }
 
-    /**
-   * readFromFile()
-   * Read attributes from the input file into an array
- * @throws Exception 
-   **/
     public static void readFromFile(FileInputStream inputFile, String filename, float[][] buf, int MAX_LINE_LENGTH) throws Exception {
         inputFile = new FileInputStream(filename);
         int j;

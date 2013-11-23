@@ -1,16 +1,16 @@
 package Intruder;
 
 public class Queue_t {
-    /*atomicset(Q)*/
+
     private static int QUEUE_GROWTH_FACTOR = 2;
 
-  /*atomic(Q)*/  int pop;
+    int pop;
 
     int push;
 
     int capacity;
 
-    /*atomic(Q)*/  Object[] elements /*this.Q[]D=this.Q*/;
+    Object[] elements;
 
     public Queue_t(int initCapacity) {
         int capacity = ((initCapacity < 2) ? 2 : initCapacity);

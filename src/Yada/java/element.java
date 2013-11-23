@@ -25,10 +25,10 @@ public class element {
     boolean isSkinny;
 
     List_t neighborListPtr;
-    /*atomicset(I)*/
-  /*atomic(i)*/  boolean isGarbage;
 
-  /*atomic(I)*/  boolean isReferenced;
+    boolean isGarbage;
+
+    boolean isReferenced;
 
     void minimizeCoordinates() {
         int minPosition = 0;

@@ -2,13 +2,11 @@ package Genome;
 
 public class ByteString {
 
-	
-	/*atomicset(Y)*/
-  /*atomic(Y)*/  byte value[];
+    byte value[];
 
-  /*atomic(Y)*/   int count;
+    int count;
 
-  /*atomic(Y)*/  int offset;
+    int offset;
 
     private int cachedHashcode;
 

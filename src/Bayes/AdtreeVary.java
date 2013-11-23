@@ -1,12 +1,5 @@
 package Bayes;
 
-/**
- * Author: Alokika Dash
- * University of California, Irvine
- * adash@uci.edu
- *
- * - Helper class of Adtree.java
- **/
 public class AdtreeVary {
 
     int index;

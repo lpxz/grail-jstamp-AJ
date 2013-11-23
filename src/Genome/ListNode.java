@@ -1,10 +1,10 @@
 package Genome;
 
 public class ListNode {
-    /*atomicset(N)*/
-   /*atoimc(N)*/ Pair dataPtr /*P=this.N*/;
 
-  /*atomic(N)*/  ListNode nextPtr /*N=this.N*/;
+    Pair dataPtr;
+
+    ListNode nextPtr;
 
     public ListNode() {
         dataPtr = null;

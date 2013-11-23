@@ -82,7 +82,6 @@ public class Genome extends Thread {
     }
 
     public static void main(String x[]) {
-    	 
         System.out.print("Creating gene and segments... ");
         Genome g = new Genome(x);
         System.out.println("done.");
@@ -91,33 +90,26 @@ public class Genome extends Thread {
         System.out.println("Number segments = " + g.segmentsPtr.contentsPtr.size());
         System.out.println("Number threads  = " + g.numThread);
         Barrier.setBarrier(g.numThread);
-        
         ByteString gene = g.genePtr.contents;
         Genome[] gn = new Genome[g.numThread];
         for (int i = 1; i < g.numThread; i++) {
             gn[i] = new Genome(i, g.geneLength, g.segmentLength, g.minNumSegment, g.numThread, g.randomPtr, g.genePtr, g.segmentsPtr, g.sequencerPtr);
         }
-      
         long start = System.currentTimeMillis();
         System.out.print("Sequencing gene... ");
         for (int i = 1; i < g.numThread; i++) {
             gn[i].start();
         }
-       
         Barrier.enterBarrier();
         Sequencer.run(0, g.numThread, g.randomPtr, g.sequencerPtr);
         Barrier.enterBarrier();
-        
         for (int i = 1; i < g.numThread; i++) {
             try {
-				gn[i].join();
-				
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                gn[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        
         long stop = System.currentTimeMillis();
         long diff = stop - start;
         System.out.println("TIME=" + diff);

@@ -1,12 +1,12 @@
 package Intruder;
 
 public class List_t {
-    /*atomicset(L)*/
-	 /*atomic(L)*/   List_Node head /*M=this.L*/;
 
- /*atomic(L)*/   int chk;
+    List_Node head;
 
- /*atomic(L)*/    int size;
+    int chk;
+
+    int size;
 
     public List_t() {
         head = new List_Node();

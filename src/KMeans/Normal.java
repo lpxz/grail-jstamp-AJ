@@ -99,9 +99,6 @@ public class Normal {
         return clusters;
     }
 
-    /**
-   * Work done by primary thread in parallel with other threads
-   **/
     void thread_work(GlobalArgs args) {
         Barrier.enterBarrier();
         Normal.work(0, args);

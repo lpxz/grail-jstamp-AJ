@@ -1,4 +1,3 @@
-
 package Bayes;
 
 import KMeans.Common;

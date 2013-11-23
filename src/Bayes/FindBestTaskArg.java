@@ -2,13 +2,6 @@ package Bayes;
 
 import common.BitMap;
 
-/**
- * Author: Alokika Dash
- * University of California, Irvine
- * adash@uci.edu
- *
- * - Helper class of Learner.java
- **/
 public class FindBestTaskArg {
 
     int toId;

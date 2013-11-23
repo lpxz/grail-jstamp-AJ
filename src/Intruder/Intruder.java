@@ -167,20 +167,16 @@ public class Intruder extends Thread {
         for (i = 1; i < in.numThread; i++) {
             intruders[i].start();
         }
-       
         Barrier.enterBarrier();
         in.processPackets(in.argument);
         Barrier.enterBarrier();
-        
         for (i = 1; i < in.numThread; i++) {
             try {
-				intruders[i].join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                intruders[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        
         long finish = System.currentTimeMillis();
         long elapsed = finish - start;
         System.out.println("TIME=" + elapsed);

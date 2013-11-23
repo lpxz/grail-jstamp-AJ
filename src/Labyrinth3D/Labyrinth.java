@@ -95,14 +95,12 @@ public class Labyrinth extends Thread {
 
     public static void main(String[] argv) throws Exception {
         Labyrinth labyrinth = new Labyrinth(argv);
-       
         Maze mazePtr = Maze.alloc();
         int numPathToRoute = mazePtr.readMaze(labyrinth.global_inputFile);
         Router routerPtr = Router.alloc(labyrinth.xCost, labyrinth.yCost, labyrinth.zCost, labyrinth.bendCost);
         List_t pathVectorListPtr = List_t.alloc(0);
         Solve_Arg routerArg = new Solve_Arg(routerPtr, mazePtr, pathVectorListPtr);
         Labyrinth[] lb = new Labyrinth[labyrinth.numThread];
-      //  Barrier.setBarrier(labyrinth.numThread);
         for (int i = 1; i < labyrinth.numThread; i++) {
             lb[i] = new Labyrinth(i, routerArg);
         }
@@ -110,15 +108,12 @@ public class Labyrinth extends Thread {
         for (int i = 1; i < labyrinth.numThread; i++) {
             lb[i].start();
         }
-       
         for (int i = 1; i < labyrinth.numThread; i++) {
             lb[i].join();
         }
         Barrier.enterBarrier();
         Router.solve(routerArg);
         Barrier.enterBarrier();
-        
-
         long finish = System.currentTimeMillis();
         long diff = finish - start;
         System.out.println("TIME=" + diff);

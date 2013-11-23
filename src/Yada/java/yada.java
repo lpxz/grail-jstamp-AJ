@@ -138,15 +138,12 @@ public class yada extends Thread {
     }
 
     public static void main(String[] argv) throws Exception {
-
-    	
         yada y = new yada();
         global_arg g = new global_arg();
         y.globalvar = g;
         y.parseArgs(argv);
-       
         List yadas = new ArrayList();
-        yadas.add(0,null);
+        yadas.add(0, null);
         y.global_meshPtr = new mesh(y.global_angleConstraint);
         System.out.println("Angle constraint = " + y.global_angleConstraint);
         System.out.println("Reading input... ");
@@ -157,18 +154,16 @@ public class yada extends Thread {
         long start = System.currentTimeMillis();
         for (int i = 1; i < y.global_numThread; i++) {
             yada ychild = new yada(y.global_meshPtr, y.global_workHeapPtr, y.global_angleConstraint, g);
-            yadas.add(i,ychild);
+            yadas.add(i, ychild);
             ychild.start();
         }
         int initNumBadElement = initializeWork(y.global_workHeapPtr, y.global_meshPtr);
         System.out.println("Initial number of mesh elements = " + initNumElement);
         System.out.println("Initial number of bad elements  = " + initNumBadElement);
         System.out.println("Starting triangulation...");
-       
         y.run();
-        
         for (int i = 1; i < y.global_numThread; i++) {
-            yada ychild = (yada)yadas.get(i);
+            yada ychild = (yada) yadas.get(i);
             ychild.join();
         }
         long stop = System.currentTimeMillis();
@@ -179,6 +174,5 @@ public class yada extends Thread {
         System.out.println("Number of elements processed    = " + y.globalvar.global_numProcess);
         boolean check = y.global_meshPtr.mesh_check(finalNumElement);
         if (!check) System.out.println("Mesh is invalid");
-    
     }
 }
